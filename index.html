@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Name — ECE Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --bg:       #f7f6f2;
+      --surface:  #ffffff;
+      --ink:      #1a1a18;
+      --muted:    #6b6b63;
+      --accent:   #c8622a;
+      --line:     #e2e0d8;
+      --serif:    'DM Serif Display', Georgia, serif;
+      --sans:     'DM Sans', system-ui, sans-serif;
+      --max:      860px;
+      --radius:   4px;
+    }
+
+    /* ── RESET ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(247,246,242,0.9);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    #home {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 7rem 2rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(2.6rem, 6vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-tagline {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 2rem;
+    }
+    .hero-cta {
+      display: inline-block;
+      padding: 0.65rem 1.5rem;
+      border: 1.5px solid var(--ink);
+      border-radius: var(--radius);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      transition: background 0.2s, color 0.2s;
+    }
+    .hero-cta:hover {
+      background: var(--ink);
+      color: var(--bg);
+      text-decoration: none;
+    }
+    .hero-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--line);
+      background: var(--line);
+      /* placeholder until you add a real photo */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-photo-placeholder {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: var(--line);
+      border: 3px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    /* ── DIVIDER ─────────────────────────────────────────── */
+    .section-divider {
+      max-width: var(--max);
+      margin: 0 auto;
+      border: none;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ── SECTION SHELL ───────────────────────────────────── */
+    .section {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 4.5rem 2rem;
+    }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .section-number {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3.5vw, 2.1rem);
+      font-weight: 400;
+    }
+
+    /* ── ABOUT ───────────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .about-body p + p { margin-top: 1rem; }
+    .about-aside {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+    }
+    .aside-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .aside-list {
+      list-style: none;
+    }
+    .aside-list li {
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.9rem;
+    }
+    .aside-list li:last-child { border-bottom: none; }
+
+    /* ── RESUME ──────────────────────────────────────────── */
+    .resume-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+    }
+    .resume-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.4rem;
+      background: var(--ink);
+      color: var(--bg);
+      border-radius: var(--radius);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+    .resume-download:hover { opacity: 0.8; text-decoration: none; }
+    .resume-section { margin-top: 1.75rem; }
+    .resume-section h3 {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .resume-entry { margin-bottom: 1rem; }
+    .resume-entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .resume-entry-title { font-weight: 500; font-size: 0.95rem; }
+    .resume-entry-date { font-size: 0.8rem; color: var(--muted); }
+    .resume-entry-sub { font-size: 0.88rem; color: var(--muted); margin-bottom: 0.3rem; }
+    .resume-entry ul { padding-left: 1.1rem; font-size: 0.88rem; }
+    .resume-entry li { margin-bottom: 0.2rem; }
+
+    /* ── CAREER GOALS ────────────────────────────────────── */
+    .goals-timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .goals-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 1px;
+      background: var(--line);
+    }
+    .goal-item {
+      position: relative;
+      margin-bottom: 2.25rem;
+    }
+    .goal-item::before {
+      content: '';
+      position: absolute;
+      left: -2.4rem; top: 8px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      outline: 1px solid var(--accent);
+    }
+    .goal-date {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+    .goal-title { font-weight: 500; margin-bottom: 0.4rem; }
+    .goal-body { font-size: 0.92rem; color: var(--muted); }
+
+    /* ── PROJECTS ────────────────────────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .project-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.07); }
+    .project-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    .project-image-placeholder {
+      width: 100%;
+      height: 180px;
+      background: var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    .project-body { padding: 1.5rem; }
+    .project-tag {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .project-title { font-weight: 500; font-size: 1rem; margin-bottom: 0.5rem; }
+    .project-desc { font-size: 0.88rem; color: var(--muted); }
+    .project-link {
+      display: inline-block;
+      margin-top: 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── SKILLS ──────────────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .skill-group-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .skill-list { list-style: none; }
+    .skill-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.88rem;
+    }
+    .skill-list li:last-child { border-bottom: none; }
+    .skill-bar-wrap {
+      width: 80px;
+      height: 3px;
+      background: var(--line);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .skill-bar {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* ── CONTACT ─────────────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .contact-intro { font-size: 1rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .contact-links { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .contact-links li { display: flex; align-items: center; gap: 0.75rem; font-size: 0.92rem; }
+    .contact-icon {
+      width: 34px; height: 34px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; flex-shrink: 0;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--accent); }
+    .contact-form button {
+      align-self: flex-start;
+      padding: 0.65rem 1.5rem;
+      background: var(--ink);
+      color: var(--bg);
+      border: none;
+      border-radius: var(--radius);
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .contact-form button:hover { opacity: 0.8; }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ── FADE-IN ANIMATION ───────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 640px) {
+      #home { grid-template-columns: 1fr; }
+      .hero-photo-placeholder { display: none; }
+      .about-grid,
+      .projects-grid,
+      .skills-grid,
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-logo">Your Name</span><!-- ✏️ Change to your name -->
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#goals">Goals</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home">
+    <div class="hero-text">
+      <p class="hero-label">ECE @ Georgia Tech</p><!-- ✏️ Update if needed -->
+      <h1 class="hero-name">Hi, I'm <em>Your Name.</em></h1><!-- ✏️ -->
+      <p class="hero-tagline">
+        Aspiring electrical & computer engineer passionate about [your interest here].
+        <!-- ✏️ Write 1–2 sentences about yourself and what drives you -->
+      </p>
+      <a href="#projects" class="hero-cta">View My Work</a>
+    </div>
+    <div class="hero-photo-placeholder">📷 Add your photo</div>
+    <!-- ✏️ Replace the div above with:
+         <img src="your-photo.jpg" alt="Your Name" class="hero-photo" /> -->
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- ABOUT -->
+  <section id="about" class="section fade-in">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-body">
+        <p>
+          <!-- ✏️ Write your bio here. Who are you? Where are you from?
+               What shaped you? Draw from your Elevator Pitch. -->
+          I'm a first-year Electrical & Computer Engineering student at Georgia Tech, originally from [City, State/Country]. Growing up [brief personal detail], I developed a passion for [interest], which led me to pursue engineering.
+        </p>
+        <p>
+          Outside the classroom, I enjoy [hobbies/interests]. I'm driven by [what motivates you] and hope to use my engineering skills to [your bigger goal or impact].
+        </p>
+        <p>
+          <!-- ✏️ Add a third paragraph if you'd like — more detail on your background
+               or what you're currently working toward. -->
+        </p>
+      </div>
+      <aside class="about-aside">
+        <p class="aside-label">Quick Facts</p>
+        <ul class="aside-list">
+          <li>📍 From: [Your City, Country]</li><!-- ✏️ -->
+          <li>🎓 Major: Electrical & Computer Engineering</li>
+          <li>📅 Class of: [Year]</li><!-- ✏️ -->
+          <li>🔬 Interests: [Interest 1], [Interest 2]</li><!-- ✏️ -->
+          <li>💼 Seeking: [Internship / Research / Co-op]</li><!-- ✏️ -->
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- RESUME -->
+  <section id="resume" class="section fade-in">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">Resume</h2>
+    </div>
+    <div class="resume-card">
+
+      <div class="resume-section">
+        <h3>Education</h3>
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <span class="resume-entry-title">Georgia Institute of Technology</span>
+            <span class="resume-entry-date">Aug [YEAR] – Present</span><!-- ✏️ -->
+          </div>
+          <div class="resume-entry-sub">B.S. Electrical & Computer Engineering · GPA: [X.XX]</div><!-- ✏️ -->
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <h3>Experience</h3>
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <span class="resume-entry-title">[Job/Role Title]</span><!-- ✏️ -->
+            <span class="resume-entry-date">[Month Year – Month Year]</span><!-- ✏️ -->
+          </div>
+          <div class="resume-entry-sub">[Company or Organization Name]</div><!-- ✏️ -->
+          <ul>
+            <li>[What you did — use action verbs: Designed, Built, Led, Analyzed...]</li><!-- ✏️ -->
+            <li>[Quantify impact where possible: "Reduced processing time by 20%"]</li><!-- ✏️ -->
+          </ul>
+        </div>
+        <!-- ✏️ Duplicate the resume-entry block above for each position -->
+      </div>
+
+      <div class="resume-section">
+        <h3>Activities &amp; Organizations</h3>
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <span class="resume-entry-title">[Club / Organization Name]</span><!-- ✏️ -->
+            <span class="resume-entry-date">[Year – Present]</span><!-- ✏️ -->
+          </div>
+          <div class="resume-entry-sub">[Your Role]</div><!-- ✏️ -->
+        </div>
+      </div>
+
+      <a href="your-resume.pdf" class="resume-download" download>
+        ↓ Download PDF Resume<!-- ✏️ Link to your actual resume PDF once uploaded -->
+      </a>
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- CAREER GOALS -->
+  <section id="goals" class="section fade-in">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">Career Goals</h2>
+    </div>
+    <p style="color:var(--muted); margin-bottom:2.5rem; max-width:600px;">
+      <!-- ✏️ Write a short intro (2–3 sentences) about your overall vision/direction. -->
+      My long-term goal is to [your big goal]. I plan to get there by building a strong foundation in [areas] during my time at Georgia Tech, then [next step after graduation].
+    </p>
+    <div class="goals-timeline">
+
+      <div class="goal-item">
+        <p class="goal-date">Now — [Year]</p>
+        <p class="goal-title">Build Academic Foundation</p><!-- ✏️ -->
+        <p class="goal-body">
+          [Describe what you're doing now — courses, clubs, labs, programs. Reference your ECE Roadmap.]<!-- ✏️ -->
+        </p>
+      </div>
+
+      <div class="goal-item">
+        <p class="goal-date">[Year]</p>
+        <p class="goal-title">First Internship / Research Position</p><!-- ✏️ -->
+        <p class="goal-body">
+          [Where do you want to work or research? What skills will you develop?]<!-- ✏️ -->
+        </p>
+      </div>
+
+      <div class="goal-item">
+        <p class="goal-date">[Year]</p>
+        <p class="goal-title">Graduate & Enter Industry / Grad School</p><!-- ✏️ -->
+        <p class="goal-body">
+          [What type of company, role, or graduate program are you aiming for?]<!-- ✏️ -->
+        </p>
+      </div>
+
+      <div class="goal-item">
+        <p class="goal-date">Long-Term</p>
+        <p class="goal-title">[Your Big Goal]</p><!-- ✏️ -->
+        <p class="goal-body">
+          [Where do you see yourself in 10–15 years? What impact do you want to have?]<!-- ✏️ -->
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section fade-in">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">Technical Projects</h2>
+    </div>
+    <div class="projects-grid">
+
+      <!-- Discovery Project Card (REQUIRED) -->
+      <div class="project-card">
+        <div class="project-image-placeholder">📷 Project Image</div>
+        <!-- ✏️ Replace with: <img src="project1.jpg" alt="Project name" class="project-image" /> -->
+        <div class="project-body">
+          <p class="project-tag">ECE 1100 · Discovery Project</p>
+          <h3 class="project-title">[Your Discovery Project Title]</h3><!-- ✏️ -->
+          <p class="project-desc">
+            <!-- ✏️ Short overview (this card is a teaser — the full 500+ word writeup
+                 can be on a separate project page or below this card) -->
+            [Brief description of your project — what problem did you solve? What did you build or research? What were the results?]
+          </p>
+          <a href="#" class="project-link">Read more →</a><!-- ✏️ Link to full project page -->
+        </div>
+      </div>
+
+      <!-- Second Project Card (optional — can add coursework, personal project, etc.) -->
+      <div class="project-card">
+        <div class="project-image-placeholder">📷 Project Image</div>
+        <div class="project-body">
+          <p class="project-tag">[Course / Context]</p><!-- ✏️ -->
+          <h3 class="project-title">[Project Title]</h3><!-- ✏️ -->
+          <p class="project-desc">
+            [Description of what you built, what you learned, and what the outcome was.]<!-- ✏️ -->
+          </p>
+          <a href="#" class="project-link">Read more →</a>
+        </div>
+      </div>
+
+    </div>
+    <!-- ✏️ Duplicate a project-card block above to add more projects over time -->
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section fade-in">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <p class="skill-group-label">Programming</p>
+        <ul class="skill-list">
+          <li>Python <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div></li><!-- ✏️ adjust % -->
+          <li>C/C++ <div class="skill-bar-wrap"><div class="skill-bar" style="width:55%"></div></div></li>
+          <li>MATLAB <div class="skill-bar-wrap"><div class="skill-bar" style="width:50%"></div></div></li>
+          <li>HTML/CSS <div class="skill-bar-wrap"><div class="skill-bar" style="width:65%"></div></div></li>
+          <!-- ✏️ Add/remove skills as needed -->
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <p class="skill-group-label">Hardware & Tools</p>
+        <ul class="skill-list">
+          <li>Circuit Design <div class="skill-bar-wrap"><div class="skill-bar" style="width:60%"></div></div></li>
+          <li>Arduino <div class="skill-bar-wrap"><div class="skill-bar" style="width:50%"></div></div></li>
+          <li>Oscilloscopes <div class="skill-bar-wrap"><div class="skill-bar" style="width:45%"></div></div></li>
+          <!-- ✏️ Add your actual hardware/lab skills -->
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <p class="skill-group-label">Soft Skills</p>
+        <ul class="skill-list">
+          <li>Teamwork <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div></li>
+          <li>Communication <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div></li>
+          <li>Problem Solving <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div></li>
+          <!-- ✏️ Adjust to reflect your actual strengths -->
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="section-divider"/>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section fade-in">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2 class="section-title">Contact</h2>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-intro">
+          I'm always open to connecting with fellow engineers, researchers, and recruiters. Feel free to reach out!
+          <!-- ✏️ Customize this sentence -->
+        </p>
+        <ul class="contact-links">
+          <li>
+            <span class="contact-icon">✉️</span>
+            <a href="mailto:youremail@gatech.edu">youremail@gatech.edu</a><!-- ✏️ -->
+          </li>
+          <li>
+            <span class="contact-icon">💼</span>
+            <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a><!-- ✏️ -->
+          </li>
+          <li>
+            <span class="contact-icon">🐙</span>
+            <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a><!-- ✏️ -->
+          </li>
+        </ul>
+      </div>
+      <form class="contact-form" onsubmit="return false;">
+        <input type="text" placeholder="Your Name" />
+        <input type="email" placeholder="Your Email" />
+        <textarea rows="4" placeholder="Your message..."></textarea>
+        <button type="submit">Send Message</button>
+        <!-- ✏️ To make this form work, connect it to Formspree.io (free) -->
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Your Name · Built with HTML & CSS · Hosted on GitHub Pages</p><!-- ✏️ -->
+  </footer>
+
+  <!-- SCROLL ANIMATION -->
+  <script>
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
